@@ -2,9 +2,10 @@ import { Id } from "../../types.js";
 
 export interface Delivery {
   id: Id;
-  owner: string;
-  firstTeammateName: string | null;
-  secondTeammateName: string | null;
+  ownerId: number;
+  week: number;
+  firstTeammateId: number | null;
+  secondTeammateId: number | null;
   frontRepoUrl: string | null;
   frontProductionUrl: string | null;
   backRepoUrl: string | null;

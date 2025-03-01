@@ -3,6 +3,7 @@ import morgan from "morgan";
 import cors from "cors";
 import isBackupNeeded from "../database/backup/middleware.js";
 import deliveriesRouter from "../entities/delivery/router/deliveriesRouter.js";
+import studentsRouter from "../entities/student/router/studentsRouter.js";
 
 const app = express();
 
@@ -16,5 +17,10 @@ app.get("/", (_req, res) => {
 });
 
 app.use("/deliveries", deliveriesRouter);
+app.use("/students", studentsRouter);
+
+app.use((_req, res) => {
+  res.status(404).json({ error: "Endpoint not found" });
+});
 
 export default app;

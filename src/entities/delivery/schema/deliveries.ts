@@ -5,9 +5,10 @@ const tableName = process.env.PROMO! + "_journey_deliveries";
 
 export const deliveries = pgTable(tableName, {
   id: integer().primaryKey(),
-  owner: varchar().notNull(),
-  firstTeammateName: varchar(),
-  secondTeammateName: varchar(),
+  ownerId: integer().notNull(),
+  week: integer().notNull(),
+  firstTeammateId: integer(),
+  secondTeammateId: integer(),
   frontRepoUrl: varchar(),
   frontProductionUrl: varchar(),
   backRepoUrl: varchar(),

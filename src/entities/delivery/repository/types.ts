@@ -1,7 +1,7 @@
+import { NewDeliveryDataDto } from "../dto/types.js";
 import { Delivery } from "../types.js";
 
 export interface DeliveryRepository {
-  get(): Promise<Delivery[]>;
+  getByWeek(weekNumber: number): Promise<Delivery[]>;
+  addDelivery(deliveryData: NewDeliveryDataDto): Promise<Delivery>;
 }
-
-export default DeliveryRepository;

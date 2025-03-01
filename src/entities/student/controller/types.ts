@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 
-export interface DeliveryControllerStructure {
+export interface StudentControllerStructure {
   get(req: Request, res: Response): Promise<void>;
-  post(req: Request, res: Response): Promise<void>;
 }
