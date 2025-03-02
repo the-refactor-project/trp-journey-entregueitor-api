@@ -1,4 +1,4 @@
-import { asc, eq } from "drizzle-orm";
+import { and, asc, eq } from "drizzle-orm";
 import { Delivery } from "../types.js";
 import { DeliveryRepository } from "./types.js";
 import { deliveries as deliveriesTable } from "../schema/deliveries.js";
@@ -26,6 +26,20 @@ class DeliveryDrizzleRepository implements DeliveryRepository {
     const deliveryDataDto = convertDeliveryToDeliveryDto(
       deliveryData as Delivery
     );
+
+    const existingDeliveries = await db
+      .select()
+      .from(deliveriesTable)
+      .where(
+        and(
+          eq(deliveriesTable.ownerId, deliveryData.ownerId),
+          eq(deliveriesTable.week, deliveryData.week)
+        )
+      );
+
+    if (existingDeliveries.length > 0) {
+      throw new Error("Delivery already exists");
+    }
 
     const [newDeliveryDto] = await db
       .insert(deliveriesTable)

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { DeliveryControllerStructure } from "./types.js";
 import { DeliveryRepository } from "../repository/types.js";
 import { NewDeliveryDataDto } from "../dto/types.js";
+import chalk from "chalk";
 
 class DeliveryController implements DeliveryControllerStructure {
   constructor(private deliveryRepository: DeliveryRepository) {
@@ -27,9 +28,17 @@ class DeliveryController implements DeliveryControllerStructure {
   ): Promise<void> {
     const deliveryData = req.body;
 
-    const newDelivery = await this.deliveryRepository.addDelivery(deliveryData);
+    try {
+      const newDelivery = await this.deliveryRepository.addDelivery(
+        deliveryData
+      );
 
-    res.status(201).json({ newDelivery });
+      res.status(201).json({ newDelivery });
+    } catch (error: unknown) {
+      console.log(chalk.red("Error: ", (error as Error).message));
+
+      res.status(409).json({ error: "Delivery already exists" });
+    }
   }
 }
 
