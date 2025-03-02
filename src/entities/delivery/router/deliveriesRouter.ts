@@ -10,5 +10,6 @@ const deliveryController = new DeliveryController(deliveryRepository);
 
 deliveriesRouter.get("/:week", deliveryController.get);
 deliveriesRouter.post("/", checkNewDeliveryBody, deliveryController.post);
+deliveriesRouter.delete("/:deliveryId", deliveryController.delete);
 
 export default deliveriesRouter;

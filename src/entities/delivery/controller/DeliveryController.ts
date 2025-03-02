@@ -8,6 +8,7 @@ class DeliveryController implements DeliveryControllerStructure {
   constructor(private deliveryRepository: DeliveryRepository) {
     this.get = this.get.bind(this);
     this.post = this.post.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   public async get(req: Request, res: Response): Promise<void> {
@@ -29,9 +30,7 @@ class DeliveryController implements DeliveryControllerStructure {
     const deliveryData = req.body;
 
     try {
-      const newDelivery = await this.deliveryRepository.addDelivery(
-        deliveryData
-      );
+      const newDelivery = await this.deliveryRepository.add(deliveryData);
 
       res.status(201).json({ newDelivery });
     } catch (error: unknown) {
@@ -39,6 +38,14 @@ class DeliveryController implements DeliveryControllerStructure {
 
       res.status(409).json({ error: "Delivery already exists" });
     }
+  }
+
+  public async delete(req: Request, res: Response): Promise<void> {
+    const { deliveryId } = req.params;
+
+    await this.deliveryRepository.delete(Number(deliveryId));
+
+    res.status(200).json({ deleted: true });
   }
 }
 

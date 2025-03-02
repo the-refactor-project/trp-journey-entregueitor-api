@@ -8,6 +8,7 @@ import {
   convertDeliveryToDeliveryDto,
 } from "../dto/mappers.js";
 import { db } from "../../../database/index.js";
+import { Id } from "../../../types.js";
 
 class DeliveryDrizzleRepository implements DeliveryRepository {
   public async getByWeek(weekNumber: number): Promise<Delivery[]> {
@@ -20,9 +21,7 @@ class DeliveryDrizzleRepository implements DeliveryRepository {
     return deliveriesDto.map(convertDeliveryDtoToDelivery);
   }
 
-  public async addDelivery(
-    deliveryData: NewDeliveryDataDto
-  ): Promise<Delivery> {
+  public async add(deliveryData: NewDeliveryDataDto): Promise<Delivery> {
     const deliveryDataDto = convertDeliveryToDeliveryDto(
       deliveryData as Delivery
     );
@@ -47,6 +46,10 @@ class DeliveryDrizzleRepository implements DeliveryRepository {
       .returning();
 
     return convertDeliveryDtoToDelivery(newDeliveryDto);
+  }
+
+  public async delete(deliveryId: Id): Promise<void> {
+    await db.delete(deliveriesTable).where(eq(deliveriesTable.id, deliveryId));
   }
 }
 
