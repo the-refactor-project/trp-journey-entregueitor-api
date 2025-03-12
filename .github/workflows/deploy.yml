@@ -23,8 +23,11 @@ jobs:
       - name: Deploy to droplet
         run: |
           ssh -i ~/.ssh/github-ci mariogl@207.154.240.145 << 'EOF'
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
             cd /srv/trp-journey-entregueitor-api
-            git pull origin main
+            git fetch --all
+            git reset --hard origin/main
             npm install --omit=dev
-            npm start
+            pm2 restart entregueitor || pm2 start npm --name "entregueitor" -- start
           EOF
