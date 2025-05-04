@@ -15,5 +15,9 @@ export const deliveries = pgTable(tableName, {
   backProductionUrl: varchar(),
   sprint1TrelloUrl: varchar(),
   sprint2TrelloUrl: varchar(),
+  sprint3TrelloUrl: varchar(),
+  sprint4TrelloUrl: varchar(),
+  figmaUrl: varchar(),
+  projectName: varchar(),
   createdAt: timestamp().notNull(),
 });

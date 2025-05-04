@@ -11,6 +11,10 @@ export const NewDeliveryBodySchema = z.object({
   backProductionUrl: z.string().optional().nullable(),
   sprint1TrelloUrl: z.string().optional().nullable(),
   sprint2TrelloUrl: z.string().optional().nullable(),
+  sprint3TrelloUrl: z.string().optional().nullable(),
+  sprint4TrelloUrl: z.string().optional().nullable(),
+  figmaUrl: z.string().optional().nullable(),
+  projectName: z.string().optional().nullable(),
 });
 
 export type NewDeliveryBody = z.infer<typeof NewDeliveryBodySchema>;
